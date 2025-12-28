@@ -70,16 +70,19 @@ class GuestbookScreen extends ConsumerWidget {
               color: Colors.white,
               borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
             ),
-            child: GuestbookDetailColumn(
-              guestbookState: state,
-              selectedGuest: state.selectedGuest,
-              selectedTab: state.selectedTab,
-              showBack: true,
-              title: 'Guest Book',
-              subtitle: AppConsts.guestBookScreenSubTitle,
-              onBack: () => Navigator.of(context).pop(),
-              onHideGuestList: () {}, 
-              onTabSelected: controller.selectTab,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GuestbookDetailColumn(
+                guestbookState: state,
+                selectedGuest: state.selectedGuest,
+                selectedTab: state.selectedTab,
+                showBack: true,
+                title: 'Guest Book',
+                subtitle: AppConsts.guestBookScreenSubTitle,
+                onBack: () => Navigator.of(context).pop(),
+                onHideGuestList: () {}, 
+                onTabSelected: controller.selectTab,
+              ),
             ),
           ),
         );
@@ -140,79 +143,85 @@ class GuestbookTopBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: Colors.white,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
-        ),
-        child: Row(
-          
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            if (showBack)
-              IconButton(
-                onPressed: onBack,
-                icon: Row(
-                  children: [
-                    const Icon(
-                      Icons.arrow_back_ios_new,
-                      color: AppColors.appIconColor,
-                      size: 16,
+      child: SafeArea(
+        bottom: false,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (showBack)
+                InkWell(
+                  onTap: onBack,
+                  borderRadius: BorderRadius.circular(8),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(
+                          Icons.arrow_back_ios_new,
+                          color: AppColors.appIconColor,
+                          size: 16,
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          "Guest Book",
+                          style: AppTypography.montserrat(
+                            fontSize: Adaptive.fontSize(context, 16),
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.appIconColor,
+                          ),
+                        ),
+                      ],
                     ),
+                  ),
+                ),
+
+              const SizedBox(width: 8),
+
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AssetSvg(asset: AppImages.guestBookIcon),
+                    const SizedBox(height: 12),
                     Text(
-                      "Guest Book",
+                      title,
+                      textAlign: TextAlign.center,
                       style: AppTypography.montserrat(
                         fontSize: Adaptive.fontSize(context, 16),
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.appIconColor,
+                        fontWeight: FontWeight.w700,
+                        height: CommonHelpers.lineHeight(
+                          fontSize: 16,
+                          figmaLineHeight: 24,
+                        ),
                       ),
                     ),
+                    const SizedBox(height: 2),
+                    Text(
+  subtitle,
+  textAlign: TextAlign.left,
+  softWrap: true,
+  style: AppTypography.montserrat(
+    fontWeight: FontWeight.w400,
+    height: CommonHelpers.lineHeight(
+      fontSize: 16,
+      figmaLineHeight: 24,
+    ),
+    fontSize: Adaptive.fontSize(context, 16),
+  ),
+)
+
                   ],
                 ),
-                tooltip: 'Show guest list',
               ),
-      
-            ResponsiveHelper.horizontalSpace(8),
-      
-            Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  AssetSvg(asset: AppImages.guestBookIcon),
-                  ResponsiveHelper.verticalSpace(12),
-                  Text(
-                    title,
-                    style: AppTypography.montserrat(
-                      fontSize: Adaptive.fontSize(context, 16),
-                      fontWeight: FontWeight.w700,
-                      height: CommonHelpers.lineHeight(
-                        fontSize: 16,
-                        figmaLineHeight: 24,
-                      ),
-                    ),
-                  ),
-                  ResponsiveHelper.verticalSpace(2),
-      
-                  Text(
-                    subtitle,
-      
-                    overflow: TextOverflow.ellipsis,
-                    style: AppTypography.montserrat(
-                      fontWeight: FontWeight.w400,
-                      height: CommonHelpers.lineHeight(
-                        fontSize: 16,
-                        figmaLineHeight: 24,
-                      ),
-                      fontSize: Adaptive.fontSize(context, 16),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

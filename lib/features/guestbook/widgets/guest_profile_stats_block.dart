@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/design/colors.dart';
 import '../../../core/design/typography.dart';
 import '../../../core/helpers/common_helpers.dart';
+import '../../../core/images/images.dart';
 import '../../../core/responsive/adaptive.dart';
 import '../../../core/responsive/responsive_helper.dart';
 
@@ -429,11 +430,13 @@ class BottomEmptyStatesResponsive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final left = const EmptyPill(
+      image: AppImages.noOrdered,
       icon: Icons.storefront_outlined,
       label: 'No Ordered Items',
     );
 
     final right = const EmptyPill(
+      image: AppImages.noVehicle,
       icon: Icons.directions_car_filled_outlined,
       label: 'No Recent Vehicle To Show',
     );
@@ -442,9 +445,9 @@ class BottomEmptyStatesResponsive extends StatelessWidget {
       return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
-          Expanded(child: EmptyPill(icon: Icons.storefront_outlined, label: 'No Ordered Items')),
+          Expanded(child: EmptyPill(icon: Icons.storefront_outlined, label: 'No Ordered Items',  image: AppImages.noOrdered,)),
           SizedBox(width: 14),
-          Expanded(child: EmptyPill(icon: Icons.directions_car_filled_outlined, label: 'No Recent Vehicle To Show')),
+          Expanded(child: EmptyPill(icon: Icons.directions_car_filled_outlined, label: 'No Recent Vehicle To Show', image: AppImages.noVehicle,)),
         ],
       );
     }
@@ -463,10 +466,13 @@ class EmptyPill extends StatelessWidget {
   final IconData icon;
   final String label;
 
+  final String? image;
+
   const EmptyPill({
     super.key,
     required this.icon,
     required this.label,
+    this.image
   });
 
   @override
@@ -477,6 +483,13 @@ class EmptyPill extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          image!=null?
+          Image.asset(
+                  image!,
+                  width: 22,
+                  height: 22,
+                  fit: BoxFit.cover,
+                ):
           Icon(icon, size: 22, color: Colors.black.withOpacity(0.55)),
           const SizedBox(width: 12),
           Expanded(

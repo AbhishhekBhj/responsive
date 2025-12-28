@@ -40,17 +40,14 @@ class GuestbookDetailColumn extends StatelessWidget {
       onTap: onHideGuestList,
       child: Column(
         children: [
-          Expanded(
-            flex: 2,
-            child: GuestbookTopBar(
-              showBack: showBack,
-              onBack: onBack,
-              title: title,
-              subtitle: subtitle,
-            ),
+          GuestbookTopBar(
+            showBack: showBack,
+            onBack: onBack,
+            title: title,
+            subtitle: subtitle,
           ),
           Expanded(
-            flex: 9,
+        
             child: GuestDetailPanel(
               guestbookState: guestbookState,
               guest: selectedGuest,

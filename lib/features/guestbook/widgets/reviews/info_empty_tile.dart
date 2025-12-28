@@ -9,12 +9,14 @@ class InfoEmptyTile extends StatelessWidget {
   final IconData icon;
   final String title;
   final VoidCallback? onTap;
+  final String? image;
 
   const InfoEmptyTile({
     super.key,
     required this.icon,
     required this.title,
     this.onTap,
+    this.image
   });
 
   @override
@@ -37,6 +39,8 @@ class InfoEmptyTile extends StatelessWidget {
         child: Row(
           children: [
             SizedBox(width: 14.w),
+
+            image != null ? Image.asset(image!, width: 24.w, height: 24.h) :
             Icon(icon, size: 24, color: const Color(0xFF2B2B2B)),
             SizedBox(width: 14.w),
             ThickDivider(),

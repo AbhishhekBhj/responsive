@@ -2,6 +2,7 @@ import 'package:eigital_task/features/guestbook/widgets/guest_allergies_panel.da
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/images/images.dart';
 import '../notes_panel.dart';
 import 'info_empty_tile.dart';
 import 'online_review_card_data.dart';
@@ -59,6 +60,8 @@ class RecentOrdersAndReviewsPanel extends StatelessWidget {
           SectionLabel(text: 'RECENT ORDERS'),
           SizedBox(height: 10.h),
           InfoEmptyTile(
+            image: AppImages.recentOrders,
+            
             icon: Icons.restaurant,
             title: 'No Recent Orders to Show',
             onTap: () {

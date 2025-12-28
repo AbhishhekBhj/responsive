@@ -1,5 +1,6 @@
 import 'package:eigital_task/core/design/typography.dart';
 import 'package:eigital_task/core/helpers/common_helpers.dart';
+import 'package:eigital_task/core/images/images.dart';
 import 'package:eigital_task/features/guestbook/widgets/guest_allergies_panel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,65 +13,74 @@ class NotesPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SectionLabel(text: 'NOTES'),
-        SizedBox(height: 10.h),
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(14.r),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.05),
-                blurRadius: 16,
-                offset: const Offset(0, 6),
-              ),
-            ],
+    return Material(
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SectionLabel(text: 'NOTES'),
+          SizedBox(height: 10.h),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(14.r),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  blurRadius: 16,
+                  offset: const Offset(0, 6),
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                NoteRow(
+                  image: AppImages.notes,
+                  icon: Icons.receipt_long,
+                  title: 'General',
+                  subtitle: 'Add notes',
+                  onTap: () {
+                    // TODO: open General notes
+                  },
+                ),
+                NoteDivider(),
+                NoteRow(
+                  image: AppImages.star,
+
+                  icon: Icons.star_border,
+                  title: 'Special Relation',
+                  subtitle: 'Add notes',
+                  onTap: () {},
+                ),
+                NoteDivider(),
+                NoteRow(
+                  image: AppImages.seatingPreference,
+                  icon: Icons.event_seat,
+                  title: 'Seating Preferences',
+                  subtitle: 'Add notes',
+                  onTap: () {},
+                ),
+                NoteDivider(),
+                NoteRow(
+                  image: AppImages.specialNotes ,
+                  icon: Icons.note_alt_outlined,
+                  title: 'Special Note*',
+                  subtitle: 'Add notes',
+                  onTap: () {},
+                ),
+                NoteDivider(),
+                NoteRow(
+                  image: AppImages.allergies,
+                  icon: Icons.restaurant_menu,
+                  title: 'Allergies',
+                  subtitle: 'Add notes',
+                  onTap: () {},
+                ),
+              ],
+            ),
           ),
-          child: Column(
-            children: [
-              NoteRow(
-                icon: Icons.receipt_long,
-                title: 'General',
-                subtitle: 'Add notes',
-                onTap: () {
-                  // TODO: open General notes
-                },
-              ),
-              NoteDivider(),
-              NoteRow(
-                icon: Icons.star_border,
-                title: 'Special Relation',
-                subtitle: 'Add notes',
-                onTap: () {},
-              ),
-              NoteDivider(),
-              NoteRow(
-                icon: Icons.event_seat,
-                title: 'Seating Preferences',
-                subtitle: 'Add notes',
-                onTap: () {},
-              ),
-              NoteDivider(),
-              NoteRow(
-                icon: Icons.note_alt_outlined,
-                title: 'Special Note*',
-                subtitle: 'Add notes',
-                onTap: () {},
-              ),
-              NoteDivider(),
-              NoteRow(
-                icon: Icons.restaurant_menu,
-                title: 'Allergies',
-                subtitle: 'Add notes',
-                onTap: () {},
-              ),
-            ],
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -81,12 +91,16 @@ class NoteRow extends StatelessWidget {
   final String subtitle;
   final VoidCallback onTap;
 
+
+  final String? image;
+
   const NoteRow({
     super.key,
     required this.icon,
     required this.title,
     required this.subtitle,
     required this.onTap,
+    this.image
   });
 
   @override
@@ -106,7 +120,17 @@ class NoteRow extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(top: 2.h),
-                    child: Icon(
+                    child:
+                    
+                    image!=null?
+                    Image.asset(
+                      image!,
+                      width: 20,
+                      height: 20,):
+                   
+                    
+                    
+                     Icon(
                       icon,
                       size: 20,
                       color: const Color(0xFF2B2B2B),
